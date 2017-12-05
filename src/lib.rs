@@ -1,19 +1,41 @@
+use std::collections::LinkedList;
+
 fn one_a(input: String) -> u32 {
-    // let string_size = |x: String| -> usize { x.chars().count() };
-    // let Input_Len: usize = input.len();
-    // const Input_Length = Input_Len;
+    let to_sum: LinkedList<u32> = LinkedList::new();
 
-    // let to_sum: [i32; Input_Len] = [0; Input_Len];
+    let i = 0;
 
-    // for c in input.chars() {
+    loop {
+        if i > input.len() {
+            break;
+        }
 
-    // }
+        if i == 0 {
+            continue;
+        }
 
-    if input == "" {            
+        if i == input.len() - 1 {
+            if input.chars().nth(i) == input.chars().nth(0) {
+                to_sum.push_back(input.chars().nth(i).to_digit(10));
+            }
+
+            continue;
+        }
+
+        if input.chars().nth(i) == input.chars().nth(i + 1) {
+            to_sum.push_back(input.chars().nth(i).to_digit(10));
+        }
+
+        i = i + 1;        
     }
 
-    println!("{}", input);
-    return 0;
+    let mut sum: u32 = 0;
+
+    for x in to_sum.iter() {
+        sum += x;
+    }
+
+    return sum;
 }
 
 #[test]
