@@ -1,4 +1,4 @@
-fn one_a(input: String) -> u32 {
+pub fn one_a(input: String) -> u32 {
     let input_ints = get_int_list_from_string(input);
     let mut to_sum: Vec<u32> = Vec::new();
 
