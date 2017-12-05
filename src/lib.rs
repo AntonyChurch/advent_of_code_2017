@@ -62,6 +62,40 @@ pub fn one_b(input: String) -> u32 {
     return sum_int_vec(to_sum);
 }
 
+pub fn two_a(input: Vec<Vec<u32>>) -> u32 {
+    let mut to_sum: Vec<u32> = Vec::new();
+
+    for row in input.iter() {
+        let mut highest: u32 = 0;
+        let mut lowest: u32 = 0;
+
+        let mut i = 0;
+
+        for col in row.iter() {
+            if i == 0 {
+                lowest = *col;
+                highest = *col;
+            }
+
+            if *col < lowest {
+                lowest = *col;
+            }
+
+            if *col > highest {
+                highest = *col;
+            }
+
+            i = i + 1;
+        }
+
+        let checksum = highest - lowest;
+
+        to_sum.push(checksum);
+    }
+
+    return sum_int_vec(to_sum);
+}
+
 fn get_int_list_from_string(input: String) -> Vec<u32> {
     let mut list: Vec<u32> = Vec::new();
 
