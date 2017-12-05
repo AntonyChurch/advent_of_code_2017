@@ -1,29 +1,24 @@
-use std::collections::LinkedList;
-
 fn one_a(input: String) -> u32 {
-    let to_sum: LinkedList<u32> = LinkedList::new();
+    let input_ints = get_int_list_from_string(input);
+    let mut to_sum: Vec<u32> = Vec::new();
 
-    let i = 0;
+    let mut i = 0;
 
     loop {
-        if i > input.len() {
+        if i > input_ints.len() {
             break;
         }
 
-        if i == 0 {
-            continue;
-        }
-
-        if i == input.len() - 1 {
-            if input.chars().nth(i) == input.chars().nth(0) {
-                to_sum.push_back(input.chars().nth(i).to_digit(10));
+        if i == input_ints.len() - 1 {
+            if input_ints[i] == input_ints[0]{
+                to_sum.push(input_ints[i]);
             }
 
-            continue;
+            break;
         }
 
-        if input.chars().nth(i) == input.chars().nth(i + 1) {
-            to_sum.push_back(input.chars().nth(i).to_digit(10));
+        if input_ints[i] == input_ints[i + 1] {
+            to_sum.push(input_ints[i]);
         }
 
         i = i + 1;        
@@ -36,6 +31,18 @@ fn one_a(input: String) -> u32 {
     }
 
     return sum;
+}
+
+fn get_int_list_from_string(input: String) -> Vec<u32> {
+    let mut list: Vec<u32> = Vec::new();
+
+    for c in input.chars() {
+        let st = c.to_string();
+        let int = st.parse::<u32>().unwrap();
+        list.push(int);
+    }
+
+    return list;
 }
 
 #[test]
