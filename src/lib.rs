@@ -140,6 +140,10 @@ pub fn two_b(input: Vec<Vec<u32>>) -> u32 {
     return sum_int_vec(to_sum);
 }
 
+pub fn three_a(input: u32) -> u32 {
+    return 0;
+}
+
 fn get_int_list_from_string(input: String) -> Vec<u32> {
     let mut list: Vec<u32> = Vec::new();
 
