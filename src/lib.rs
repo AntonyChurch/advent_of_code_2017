@@ -96,6 +96,50 @@ pub fn two_a(input: Vec<Vec<u32>>) -> u32 {
     return sum_int_vec(to_sum);
 }
 
+pub fn two_b(input: Vec<Vec<u32>>) -> u32 {
+    let mut to_sum: Vec<u32> = Vec::new();
+
+    for row in input.iter() {
+        let mut value: u32 = 0;
+
+        let mut i = 0;
+        loop {
+            if i >= row.len(){
+                break;
+            }
+
+            if value != 0 {
+                break;
+            }
+
+            let mut j = 0;
+            loop {
+                if i == j {
+                    j = j + 1;
+                    continue;
+                }
+
+                if j >= row.len() {
+                    break;
+                }
+
+                if row[i] % row[j] == 0 {                    
+                    value = row[i] / row[j];
+                    break;
+                }
+
+                j = j + 1;
+            }
+
+            i = i + 1;
+        }
+
+        to_sum.push(value);
+    }
+
+    return sum_int_vec(to_sum);
+}
+
 fn get_int_list_from_string(input: String) -> Vec<u32> {
     let mut list: Vec<u32> = Vec::new();
 
