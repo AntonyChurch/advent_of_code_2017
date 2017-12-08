@@ -141,7 +141,30 @@ pub fn two_b(input: Vec<Vec<u32>>) -> u32 {
 }
 
 pub fn three_a(input: u32) -> u32 {
+    let side_length = get_closest_odd_square_number_root(input);
+
     return 0;
+}
+
+pub get_closest_odd_square_number_root(input: u32) -> u32 {
+    let mut i: u32 = 0;
+
+    loop {
+        let square = i * i;
+
+        if(square > input){
+            return i;
+        }
+
+        i += 2;
+    }
+}
+
+enum SpiralSide {
+    Top,
+    Bottom,
+    Left,
+    Right
 }
 
 fn get_int_list_from_string(input: String) -> Vec<u32> {
