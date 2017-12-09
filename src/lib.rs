@@ -1,3 +1,5 @@
+#![allow(unused_variables)]
+
 pub fn one_a(input: String) -> u32 {
     let input_ints = get_int_list_from_string(input);
     let mut to_sum: Vec<u32> = Vec::new();
@@ -143,6 +145,25 @@ pub fn two_b(input: Vec<Vec<u32>>) -> u32 {
 pub fn three_a(input: u32) -> u32 {
     let side_length = get_closest_odd_square_number_root(input);
     let side = get_side_from_square_number_root(side_length, input);
+
+    let mut steps: u32 = 0;
+    match side {
+        SpiralSide::Top => {
+
+        },
+        SpiralSide::Bottom => {
+            
+        },
+        SpiralSide::Left => {
+            
+        },
+        SpiralSide::Right => {
+            
+        },
+        SpiralSide::Corner => {
+            
+        }
+    }
 
     return 0;
 }
