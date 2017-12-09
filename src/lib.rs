@@ -142,17 +142,18 @@ pub fn two_b(input: Vec<Vec<u32>>) -> u32 {
 
 pub fn three_a(input: u32) -> u32 {
     let side_length = get_closest_odd_square_number_root(input);
+    let side = get_side_from_square_number_root(side_length, input);
 
     return 0;
 }
 
-pub get_closest_odd_square_number_root(input: u32) -> u32 {
+fn get_closest_odd_square_number_root(input: u32) -> u32 {
     let mut i: u32 = 0;
 
     loop {
         let square = i * i;
 
-        if(square > input){
+        if square > input {
             return i;
         }
 
@@ -160,11 +161,36 @@ pub get_closest_odd_square_number_root(input: u32) -> u32 {
     }
 }
 
+fn get_side_from_square_number_root(root: u32, input: u32) -> SpiralSide {
+    let max_value = root * root;
+    let min_value = ((root - 2) * (root - 2)) + 1;
+
+    if input == max_value || input == (max_value - root)
+        || input == min_value || input == min_value + root {
+        return SpiralSide::Corner;
+    }
+
+    if input < max_value && input > (max_value - root) {
+        return SpiralSide::Bottom;
+    }
+
+    if input < (max_value - root) && input > (max_value - root - root) {
+        return SpiralSide::Left;
+    }
+
+    if input < (max_value - root - root) && input > (max_value - (root * 3)) {
+        return SpiralSide::Top;
+    }
+
+    return SpiralSide::Right;
+}
+
 enum SpiralSide {
     Top,
     Bottom,
     Left,
-    Right
+    Right,
+    Corner
 }
 
 fn get_int_list_from_string(input: String) -> Vec<u32> {
