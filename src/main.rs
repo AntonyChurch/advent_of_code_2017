@@ -6,6 +6,13 @@ fn main(){
 
     twoa();
     twob();
+
+    // println!("Thing: {}", adventofcode::three_a(1));
+    // println!("Thing: {}", adventofcode::three_a(9));
+    // println!("Thing: {}", adventofcode::three_a(25));
+    println!("Thing: {}", adventofcode::three_a(10));
+    println!("Thing: {}", adventofcode::three_a(1024));
+    // println!("Thing: {}", adventofcode::three_a(23));
 }
 
 fn twoa(){

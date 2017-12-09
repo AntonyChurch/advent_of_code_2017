@@ -143,38 +143,91 @@ pub fn two_b(input: Vec<Vec<u32>>) -> u32 {
 }
 
 pub fn three_a(input: u32) -> u32 {
+    if input == 1 {
+        return 0;
+    }
+
     let side_length = get_closest_odd_square_number_root(input);
+    println!("side_length: {}", side_length);
     let side = get_side_from_square_number_root(side_length, input);
 
-    let mut steps: u32 = 0;
+    let max_value = side_length * side_length;
+    let min_value = ((side_length - 2) * (side_length - 2)) + 1;
+
+    let bottom_right = max_value;
+    let bottom_left = (max_value - side_length) + 1;
+    let top_left = (max_value - side_length - side_length) + 2;
+    let top_right = (max_value - side_length - side_length - side_length) + 3;
+
+    let top_middle = (top_left + top_right) / 2;
+    let left_middle = (top_left + bottom_left) / 2;
+    let bottom_middle = (bottom_left + bottom_right) / 2;
+    let right_middle = top_right - (side_length / 2);
+
+    println!("top: {}, left: {}, bottom: {}, right: {}", top_middle, left_middle, bottom_middle, right_middle);
+
+    let mut steps = (side_length - 1) / 2;
+    println!("steps: {}", steps);
     match side {
         SpiralSide::Top => {
-
+            if input > top_middle {
+                println!("Top: {}", (input - top_middle));
+                steps += input - top_middle;
+            }
+            else {
+                println!("Top: {}", (top_middle - input));
+                steps += top_middle - input;
+            }
+            
         },
         SpiralSide::Bottom => {
+            if input > bottom_middle {
+                println!("Bottom: {}", (input - bottom_middle));
+                steps += input - bottom_middle;
+            }
+            else {
+                println!("Bottom: {}", (bottom_middle - input));
+                steps += bottom_middle - input;
+            }
             
         },
         SpiralSide::Left => {
+            if input > left_middle {
+                println!("Left: {}", (input - left_middle));
+                steps += input - left_middle;
+            }
+            else {
+                println!("Left: {}", (left_middle - input));
+                steps += left_middle - input;
+            }
             
         },
         SpiralSide::Right => {
-            
+            if input > right_middle {
+                println!("Right: {}", (input - right_middle));
+                steps += input - right_middle;
+            }
+            else {
+                println!("Right: {}", (right_middle - input));
+                steps += right_middle - input;
+            }
         },
         SpiralSide::Corner => {
-            
+            println!("Corner");
+            steps = side_length - 1;
         }
     }
 
-    return 0;
+    return steps;
 }
 
 fn get_closest_odd_square_number_root(input: u32) -> u32 {
-    let mut i: u32 = 0;
+    let mut i: u32 = 1;
 
     loop {
         let square = i * i;
 
-        if square > input {
+        if square >= input {
             return i;
         }
 
@@ -183,27 +236,41 @@ fn get_closest_odd_square_number_root(input: u32) -> u32 {
 }
 
 fn get_side_from_square_number_root(root: u32, input: u32) -> SpiralSide {
-    let max_value = root * root;
-    let min_value = ((root - 2) * (root - 2)) + 1;
-
-    if input == max_value || input == (max_value - root)
-        || input == min_value || input == min_value + root {
+    if root == 1 {
         return SpiralSide::Corner;
     }
 
-    if input < max_value && input > (max_value - root) {
-        return SpiralSide::Bottom;
+    let max_value = root * root;
+    let min_value = ((root - 2) * (root - 2)) + 1;
+
+    let bottom_right = max_value;
+    let bottom_left = (max_value - root) + 1;
+    let top_left = (max_value - root - root) + 2;
+    let top_right = (max_value - root - root - root) + 3;
+
+
+    if input == bottom_right || input == bottom_left
+    || input == top_left || input == top_right {
+        return SpiralSide::Corner;
     }
 
-    if input < (max_value - root) && input > (max_value - root - root) {
-        return SpiralSide::Left;
+    if input >= min_value && input < top_right {
+        return SpiralSide::Right;
     }
 
-    if input < (max_value - root - root) && input > (max_value - (root * 3)) {
+    if input > top_left && input < top_right {
         return SpiralSide::Top;
     }
 
-    return SpiralSide::Right;
+    if input > top_left && input < bottom_left {
+        return SpiralSide::Left;
+    }
+    
+    if input > bottom_left && input < bottom_right {
+        return SpiralSide::Bottom;
+    }
+
+    return SpiralSide::Corner;
 }
 
 enum SpiralSide {
