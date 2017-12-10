@@ -213,10 +213,41 @@ pub fn three_a(input: u32) -> u32 {
         SpiralSide::Corner => {
             println!("Corner");
             steps = side_length - 1;
+        },
+        SpiralSide::TopRight => {
+        }
+        SpiralSide::TopLeft => {
+        }
+        SpiralSide::BottomRight => {
+        }
+        SpiralSide::BottomLeft => {
+        },
+        SpiralSide::None => {
         }
     }
 
     return steps;
+}
+
+pub fn three_b(input: u32) -> u32 {
+    // Create data struct { x, y, value}
+    // Add {0, 0, 1} to a list
+    // Start to calculate those around it
+    // Return answer
+
+    let mut values: Vec<SpiralPositionValue> = Vec::new();
+    values.push(SpiralPositionValue{ position: SpiralPosition{ x: 0, y: 0, side: SpiralSide::None }, value: 1 });
+
+    let mut side_length = 3;
+    let mut step = 1;
+
+    loop {
+        
+        step += 1;
+        side_length += 2;
+    }
+
+    return 0;
 }
 
 fn get_closest_odd_square_number_root(input: u32) -> u32 {
@@ -272,12 +303,42 @@ fn get_side_from_square_number_root(root: u32, input: u32) -> SpiralSide {
     return SpiralSide::Corner;
 }
 
+fn get_value_from_position(x: i32, y: i32, values: Vec<SpiralPositionValue>) -> u32 {
+    let mut ret_value = 0;
+
+    // For problem, counting backwards would probably be much more efficient.
+    for val in values {
+        if val.position.x == x && val.position.y == y {
+            ret_value = val.value;
+            break;
+        }
+    }
+
+    return ret_value;
+}
+
 enum SpiralSide {
     Top,
     Bottom,
     Left,
     Right,
-    Corner
+    TopRight,
+    TopLeft,
+    BottomRight,
+    BottomLeft,
+    Corner,
+    None
+}
+
+struct SpiralPositionValue{
+    position: SpiralPosition,
+    value: u32,
+}
+
+struct SpiralPosition{
+    x: i32,
+    y: i32,
+    side: SpiralSide,
 }
 
 fn get_int_list_from_string(input: String) -> Vec<u32> {
