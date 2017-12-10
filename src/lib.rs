@@ -1,5 +1,3 @@
-#![allow(unused_variables)]
-
 pub fn one_a(input: String) -> u32 {
     let input_ints = get_int_list_from_string(input);
     let mut to_sum: Vec<u32> = Vec::new();
@@ -248,6 +246,7 @@ fn get_side_from_square_number_root(root: u32, input: u32) -> SpiralSide {
     let top_left = (max_value - root - root) + 2;
     let top_right = (max_value - root - root - root) + 3;
 
+    println!("BR: {}, BL: {}, TL: {}, TR: {}", bottom_right, bottom_left, top_left, top_right);
 
     if input == bottom_right || input == bottom_left
     || input == top_left || input == top_right {
@@ -258,7 +257,7 @@ fn get_side_from_square_number_root(root: u32, input: u32) -> SpiralSide {
         return SpiralSide::Right;
     }
 
-    if input > top_left && input < top_right {
+    if input > top_right && input < top_left {
         return SpiralSide::Top;
     }
 
