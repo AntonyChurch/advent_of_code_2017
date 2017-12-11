@@ -146,7 +146,6 @@ pub fn three_a(input: u32) -> u32 {
     }
 
     let side_length = get_closest_odd_square_number_root(input);
-    println!("side_length: {}", side_length);
     let side = get_side_from_square_number_root(side_length, input);
 
     let max_value = side_length * side_length;
@@ -162,67 +161,45 @@ pub fn three_a(input: u32) -> u32 {
     let bottom_middle = (bottom_left + bottom_right) / 2;
     let right_middle = top_right - (side_length / 2);
 
-    println!("top: {}, left: {}, bottom: {}, right: {}", top_middle, left_middle, bottom_middle, right_middle);
-
     let mut steps = (side_length - 1) / 2;
-    println!("steps: {}", steps);
     match side {
         SpiralSide::Top => {
             if input > top_middle {
-                println!("Top: {}", (input - top_middle));
                 steps += input - top_middle;
             }
             else {
-                println!("Top: {}", (top_middle - input));
                 steps += top_middle - input;
             }
             
         },
         SpiralSide::Bottom => {
             if input > bottom_middle {
-                println!("Bottom: {}", (input - bottom_middle));
                 steps += input - bottom_middle;
             }
             else {
-                println!("Bottom: {}", (bottom_middle - input));
                 steps += bottom_middle - input;
             }
             
         },
         SpiralSide::Left => {
             if input > left_middle {
-                println!("Left: {}", (input - left_middle));
                 steps += input - left_middle;
             }
             else {
-                println!("Left: {}", (left_middle - input));
                 steps += left_middle - input;
             }
             
         },
         SpiralSide::Right => {
             if input > right_middle {
-                println!("Right: {}", (input - right_middle));
                 steps += input - right_middle;
             }
             else {
-                println!("Right: {}", (right_middle - input));
                 steps += right_middle - input;
             }
         },
         SpiralSide::Corner => {
-            println!("Corner");
             steps = side_length - 1;
-        },
-        SpiralSide::TopRight => {
-        }
-        SpiralSide::TopLeft => {
-        }
-        SpiralSide::BottomRight => {
-        }
-        SpiralSide::BottomLeft => {
-        },
-        SpiralSide::None => {
         }
     }
 
@@ -236,13 +213,21 @@ pub fn three_b(input: u32) -> u32 {
     // Return answer
 
     let mut values: Vec<SpiralPositionValue> = Vec::new();
-    values.push(SpiralPositionValue{ position: SpiralPosition{ x: 0, y: 0, side: SpiralSide::None }, value: 1 });
+    values.push(SpiralPositionValue{ position: SpiralPosition{ x: 0, y: 0 }, value: 1 });
 
     let mut side_length = 3;
     let mut step = 1;
+    let mut last_x = 1;
+    let mut last_y = 1;
 
     loop {
-        
+        // Step one to the right (x + 1)
+        // Step up until y == step
+        // Step left until x == -step
+        // Step down until y == -step
+        // Step right until x == step
+        // Don't forget to compare the number on each step (write a function for each step).
+
         step += 1;
         side_length += 2;
     }
@@ -277,8 +262,6 @@ fn get_side_from_square_number_root(root: u32, input: u32) -> SpiralSide {
     let top_left = (max_value - root - root) + 2;
     let top_right = (max_value - root - root - root) + 3;
 
-    println!("BR: {}, BL: {}, TL: {}, TR: {}", bottom_right, bottom_left, top_left, top_right);
-
     if input == bottom_right || input == bottom_left
     || input == top_left || input == top_right {
         return SpiralSide::Corner;
@@ -306,7 +289,7 @@ fn get_side_from_square_number_root(root: u32, input: u32) -> SpiralSide {
 fn get_value_from_position(x: i32, y: i32, values: Vec<SpiralPositionValue>) -> u32 {
     let mut ret_value = 0;
 
-    // For problem, counting backwards would probably be much more efficient.
+    // For problem 3B, counting backwards would probably be much more efficient.
     for val in values {
         if val.position.x == x && val.position.y == y {
             ret_value = val.value;
@@ -322,12 +305,7 @@ enum SpiralSide {
     Bottom,
     Left,
     Right,
-    TopRight,
-    TopLeft,
-    BottomRight,
-    BottomLeft,
-    Corner,
-    None
+    Corner
 }
 
 struct SpiralPositionValue{
@@ -337,8 +315,7 @@ struct SpiralPositionValue{
 
 struct SpiralPosition{
     x: i32,
-    y: i32,
-    side: SpiralSide,
+    y: i32
 }
 
 fn get_int_list_from_string(input: String) -> Vec<u32> {
