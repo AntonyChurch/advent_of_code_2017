@@ -8,6 +8,7 @@ fn main(){
     twob();
 
     println!("Answer 3a: {}", adventofcode::three_a(277678));
+    println!("Answer 3b: {}", adventofcode::three_b(277678));
 }
 
 fn twoa(){
