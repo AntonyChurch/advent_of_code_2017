@@ -1,3 +1,5 @@
+pub mod four;
+
 pub fn one_a(input: String) -> u32 {
     let input_ints = get_int_list_from_string(input);
     let mut to_sum: Vec<u32> = Vec::new();
@@ -207,11 +209,6 @@ pub fn three_a(input: u32) -> u32 {
 }
 
 pub fn three_b(input: u32) -> u32 {
-    // Create data struct { x, y, value}
-    // Add {0, 0, 1} to a list
-    // Start to calculate those around it
-    // Return answer
-
     let mut values: Vec<SpiralPositionValue> = Vec::new();
     values.push(SpiralPositionValue{ position: SpiralPosition{ x: 0, y: 0 }, value: 1 });
 
