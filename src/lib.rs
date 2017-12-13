@@ -328,8 +328,6 @@ fn get_value_for_position(x: i32, y: i32, values: &[SpiralPositionValue]) -> u32
     value += get_value_from_position(x, y - 1, values);
     value +=  get_value_from_position(x - 1, y - 1, values);
     value += get_value_from_position(x - 1, y, values);
-
-    println!("x: {}, y: {}, val: {}", x, y, value);
     
     return value;
 }

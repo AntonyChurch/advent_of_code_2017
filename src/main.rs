@@ -13,6 +13,7 @@ fn main(){
     println!("Answer 3b: {}", adventofcode::three_b(277678));
 
     println!("Answer 4a: {}", four::four_a());
+    println!("{}", four::is_passphrase_valid_b(String::from("a ab abc abd abf abj")));
 }
 
 fn twoa(){

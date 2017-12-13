@@ -45,6 +45,10 @@ pub fn is_passphrase_valid_a(input: String) -> bool {
 pub fn is_passphrase_valid_b(input: String) -> bool {
     let split = input.split(" ");
 
+    // for t in split.clone() {
+    //     print!("{}, ", t);
+    // }
+
     let mut inputs: Vec<&str> = Vec::new();
 
     for s in split{        
@@ -69,20 +73,18 @@ fn is_string_in_list(string: &str, strings: &[&str]) -> bool {
 }
 
 fn is_anagram_in_list(string: &str, strings: &[&str]) -> bool {
+    print!("THINGS: ");
+    for s in strings {
+        print!("{}, ", s);
+    }    
+    print!("\n");
+
     for s in strings {
         if *s == string {
-            //println!("S: {}, String: {}", s, string);
             return true;
         }
 
-        if s.chars().count() == string.chars().count() {
-            //println!("matching length!", s, string);
-            for c in s.chars() {
-                if !string_contains_char(string, c) {
-                    continue;
-                }
-            }
-
+        if is_string_anagram_of_string(s, string) {          
             return true;
         }
     }
@@ -91,7 +93,6 @@ fn is_anagram_in_list(string: &str, strings: &[&str]) -> bool {
 }
 
 fn string_contains_char(string: &str, c: char) -> bool {
-    println!("{}", string);
     for s in string.chars() {
         if s == c {
             return true;
@@ -99,4 +100,25 @@ fn string_contains_char(string: &str, c: char) -> bool {
     }
 
     return false;
+}
+
+fn is_string_anagram_of_string(s1: &str, s2: &str) -> bool {
+    println!("Comparing: '{}' with: '{}'", s1, s2);
+    if s1.chars().count() != s2.chars().count() {
+        return false;
+    }
+
+    let mut ordered1: Vec<char> = s1.chars().collect();
+    ordered1.sort_by(|a, b| b.cmp(a));
+
+    let mut ordered2: Vec<char> = s1.chars().collect();
+    ordered2.sort_by(|a, b| b.cmp(a));
+
+    for x in 0..ordered1.len() {
+        if ordered1[x] != ordered2[x] {
+            return false;
+        }
+    }
+
+    return true;
 }
